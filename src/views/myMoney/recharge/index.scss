@@ -1,0 +1,15 @@
+.recharge-con{
+  font-size:16px;
+  font-weight:900;
+  & .recharge-address{
+  }
+  & .recharge-qr{
+    margin-top:30px;
+    & img{
+      width:250px;
+    }
+  }
+  & .recharge-title{
+    margin-top:30px;
+  }
+}

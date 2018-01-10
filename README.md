@@ -1,2 +1,1 @@
-# mvc-wallet-app
-mvc-wallet-web
+# mvc-wallet

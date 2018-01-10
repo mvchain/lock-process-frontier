@@ -1,0 +1,16 @@
+.change-pwd{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100%;
+  & .change-pwd-con{
+    width:500px;
+    height:600px;
+  }
+  & .change-pwd-title{
+    font-size:24px;
+    font-weight:900;
+    text-align: center;
+    margin-bottom:30px;
+  }
+}

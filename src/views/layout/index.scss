@@ -1,0 +1,61 @@
+.mvc-header{
+  display: flex;
+  justify-content: space-between;
+  & .mvc-header-bread{
+    width:300px;
+    line-height:60px;
+  }
+
+  & .mvc-header-handler{
+    flex:1;
+    line-height:60px;
+    & .el-menu--horizontal{
+      border:0;
+    }
+    & .back-style{
+      margin-left:60px;
+    }
+    & .el-menu-demo{
+      float:right;
+    }
+  }
+}
+.mvc-slider{
+  width:250px;
+  display: flex;
+  height:100%;
+  overflow: hidden;
+  flex-direction: column;
+  background:#2d3a4b;
+  & .mvc-slider-logo{
+    height:250px;
+    background:url(../../../static/imgs/logo.png) no-repeat 45px 45px;
+    background-size:160px 160px;
+  }
+  & .mvc-slider-menu{
+    width:251px;
+    & span{
+      padding:18px 120px 18px 7px;
+    }
+  }
+  & .mvc-slider-private{
+    flex:1;
+    position: relative;
+    & > div{
+      position: absolute;
+      bottom:0;
+      width:250px;
+      height:55px;
+      text-align: center;
+      background:rgb(36, 46, 60);
+      cursor: pointer;
+      line-height:55px;
+    }
+    & .mvc-dropdown-link{
+      padding:10px 20px;
+      font-size:15px;
+      color:#fff;
+    }
+  }
+
+}
