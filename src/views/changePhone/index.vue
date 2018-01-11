@@ -16,7 +16,7 @@
             <el-input v-model="phoneFrom.valiCode" :disabled="verTime" placeholder="请输入验证码"></el-input>
           </el-col>
           <el-col :span="8" style="text-align: right">
-            <el-button @click="getVerificationCode">{{verificationTxt}}</el-button>
+            <send-btn :phone="phone"></send-btn>
           </el-col>
         </el-form-item>
         <el-form-item>
@@ -29,8 +29,12 @@
 
 <script>
   import { phoneNumFilter } from '@/utils/validate'
+  import sendBtn from '../../components/sendVerificationCode/index'
   export default {
     name: 'changePhone',
+    components: {
+      'send-btn': sendBtn
+    },
     data() {
       const validatePwd = (rule, value, callback) => {
         if (!value) {
@@ -60,7 +64,7 @@
       return {
         labelPosition: 'right',
         verTime: false,
-        verificationTxt: '获取验证码',
+        phone: JSON.parse(window.sessionStorage.getItem('mvcUser')).cellphone,
         phoneFrom: {
           password: '',
           newCellPhone: '',
@@ -94,32 +98,7 @@
             return false
           }
         })
-      },
-      getVerificationCode() {
-        const that = this
-        that.verTime = true
-        const phone = JSON.parse(window.sessionStorage.getItem('mvcUser'))
-        let n = 59
-        let time = null
-        this.$store.dispatch('getVali', { mobile: phone }).then((res) => {
-          this.$message({
-            type: 'success',
-            message: '发送成功'
-          })
-        }).catch((err) => {
-          this.$message.error(err)
-        })
-        time = setInterval(() => {
-          that.verificationTxt = n
-          if (n <= 0) {
-            clearInterval(time)
-            that.verTime = false
-            that.verificationTxt = '获取验证码'
-          } else {
-            n--
-          }
-        }, 1000)
-      },
+      }
     }
   }
 </script>

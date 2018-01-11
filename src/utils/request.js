@@ -1,5 +1,4 @@
 import axios from 'axios'
-import store from '../store'
 import { Message } from 'element-ui'
 
 // 创建axios实例
@@ -27,16 +26,7 @@ service.interceptors.response.use(
       window.location.href = '#/login'
       return Promise.reject('连接超时，请重新登录')
     }
-    if (res.status !== 200) {
-      Message({
-        message: res.data,
-        type: 'error',
-        duration: 5 * 1000
-      })
-      return Promise.reject(res.message)
-    } else {
-      return response.data
-    }
+    return response.data
   },
   error => {
     Message({

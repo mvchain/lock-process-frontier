@@ -21,3 +21,12 @@ export function passwordVerification(v) {
     return false;
   }
 }
+/*正数*/
+export function balanceVerification(v) {
+  const reg = /^[0-9]+\.?[0-9]{0,9}$/
+  if (reg.test(v)) {
+    return true;
+  } else {
+    return false;
+  }
+}

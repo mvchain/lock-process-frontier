@@ -24,13 +24,18 @@
         >
       </el-table-column>
       <el-table-column
+        prop="interestStr"
+        label="累计锁仓收益"
+      >
+      </el-table-column>
+      <el-table-column
         label="操作"
         width="200"
        >
         <template slot-scope="scope">
-          <router-link class="mvc-btn mvc-btn-primary" :to="{path: '/myMoney/moneyRecharge', query: {id:scope.row.id}}">充值</router-link>
-          <router-link class="mvc-btn mvc-btn-success" :to="{path: '/myMoney/moneyWithdraw', query: {id:scope.row.id}}">提现</router-link>
-          <router-link class="mvc-btn mvc-btn-danger" :to="{path: '/myMoney/moneyLock', query: {id:scope.row.id}}">锁仓</router-link>
+          <router-link class="mvc-btn mvc-btn-primary" :to="{path: '/myMoney/moneyRecharge', query: {type:'ETH',id:1}}">充值</router-link>
+          <router-link class="mvc-btn mvc-btn-success" :to="{path: '/myMoney/moneyWithdraw', query: {type:'NJH',balance:scope.row.balanceStr,id:2}}">提现</router-link>
+          <router-link class="mvc-btn mvc-btn-danger" :to="{path: '/myMoney/moneyLock', query: {type:'NJH',id:3,balance:scope.row.balanceStr,lock:scope.row.lockStr}}">锁仓</router-link>
         </template>
       </el-table-column>
     </el-table>
@@ -59,35 +64,6 @@
     },
     data() {
       return {
-        tableData: [{
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }]
       }
     }
   }
