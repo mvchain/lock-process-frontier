@@ -1,11 +1,11 @@
-import { moneyList, address, record, withdrawRule, withdrawHandler, lockPosition, lockRecord } from '@/api/home'
+import { moneyList, address, record, withdrawRule, withdrawHandler, lockPosition, lockRecord, clearMoney } from '@/api/home'
 
 const money = {
   state: {
     moneyList: [],
     recordList: {},
     withdrawData: [],
-    lockRecordList: []
+    lockRecordList: {}
   },
 
   mutations: {
@@ -18,7 +18,7 @@ const money = {
     SET_WITHDRAW_DATA: (state, withdrawData) => {
       state.withdrawData = withdrawData
     },
-    SET_LOCK_RECORD: (state, withdrawData) => {
+    SET_LOCK_RECORD: (state, lockRecordList) => {
       state.lockRecordList = lockRecordList
     }
   },
@@ -96,7 +96,16 @@ const money = {
     getLockRecord({ commit, state }, payload) {
       return new Promise((resolve, reject) => {
         lockRecord(payload).then(res => {
-          commit('SET_LOCK_RECORD', res.data.list)
+          commit('SET_LOCK_RECORD', res)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    getClearMoney({ commit, state }, payload) {
+      return new Promise((resolve, reject) => {
+        clearMoney(payload).then(() => {
           resolve()
         }).catch(error => {
           reject(error)

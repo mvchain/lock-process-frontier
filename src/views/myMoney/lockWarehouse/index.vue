@@ -1,6 +1,6 @@
 <template>
   <div class="lock-con">
-    <div class="lock-title" style="margin-top:0;color:rgb(255, 208, 75)">锁仓规则：锁仓6个月，利息10%，代币锁仓后，在锁仓时间截至前，无法提现</div>
+    <div class="lock-title" style="margin-top:0;color:rgb(255, 208, 75)">锁仓规则：锁仓{{rules.month}}个月，利息{{rules.interest*100}}%，代币锁仓后，在锁仓时间截止前，无法提现</div>
     <div class="lock-row">
       <el-form label-width="130px" :model="lockForm" :rules="lockRules" ref="lockForm">
         <el-form-item label="已锁仓金额：">
@@ -22,40 +22,26 @@
         </el-form-item>
       </el-form>
     </div>
-    <div>
-      <p class="lock-title">最近锁仓记录</p>
-      <el-table
-        :data="tableData"
-        border
-        style="width: 100%">
-        <el-table-column
-          prop="date"
-          label="日期"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="name"
-          label="姓名"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="address"
-          label="地址">
-        </el-table-column>
-      </el-table>
-    </div>
+    <lock-recored></lock-recored>
   </div>
 </template>
 
 <script>
   import { balanceVerification } from '@/utils/validate'
   import { mapGetters } from 'vuex'
+  import lockRecored from '../../../components/lockRecored/index'
   export default {
     name: 'lockWarehouse',
     computed: {
       ...mapGetters({
-        recordList: 'recordList'
+        withdrawData: 'withdrawData'
       })
+    },
+    components: {
+      'lock-recored': lockRecored
+    },
+    mounted() {
+      this.getWithDraw()
     },
     data() {
       const valiPassword = (rule, value, callback) => {
@@ -82,8 +68,8 @@
         }
       }
       return {
+        rules: {},
         lockForm: {
-          address: '',
           password: '',
           value: '',
           type: this.$route.query.type
@@ -95,8 +81,18 @@
       }
     },
     methods: {
-      getRecord() {
-        this.$store.dispatch('getLockRecord', `?pageNo=${this.pageNo}&pageSize=${this.pageSize}&types=1,2`).then(() => {
+      getWithDraw() {
+        this.$store.dispatch('getWithdrawRule').then((res) => {
+          res.forEach((v,k) => {
+            if (v.type === 1) {
+              let arr = JSON.parse(v.config.substring(1, v.config.length - 1))
+              arr.forEach((v,k)=>{
+                if (v.type === this.$route.query.type) {
+                  this.rules = v
+                }
+              })
+            }
+          })
         }).catch((err) => {
           this.$message.error(err)
         })
@@ -107,6 +103,7 @@
             this.$store.dispatch('getLockPosition', this.lockForm).then((res) => {
               this.$message.success('锁仓申请提交成功')
               this.$refs.lockForm.resetFields();
+              this.getRecord()
             }).catch((err) => {
               this.$message.error(err)
             })

@@ -69,7 +69,7 @@
       getAddress() {
         this.$store.dispatch('getAddress').then((res) => {
           this.address = res
-          this.getQRCode('0x58f103AdABe28D60febfB2fB732FEf8C7aCDbDa3')
+          this.getQRCode(res)
         }).catch((err) => {
           this.$message.error(err)
         })
@@ -100,24 +100,7 @@
         address: '',
         qrImg: '',
         pageNo: 1,
-        pageSize: 10,
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }]
+        pageSize: 10
       }
     }
   }

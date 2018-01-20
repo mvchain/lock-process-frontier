@@ -21,6 +21,7 @@ export function passwordVerification(v) {
     return false;
   }
 }
+
 /*正数*/
 export function balanceVerification(v) {
   const reg = /^[0-9]+\.?[0-9]{0,9}$/
@@ -28,5 +29,14 @@ export function balanceVerification(v) {
     return true;
   } else {
     return false;
+  }
+}
+/* 身份证 */
+export function isCardNo(card) {
+  let reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+  if (reg.test(card) === false) {
+    return false;
+  } else {
+    return true
   }
 }

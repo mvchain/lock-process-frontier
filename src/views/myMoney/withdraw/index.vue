@@ -9,17 +9,17 @@
           <span>{{rules.max}}</span>
         </el-form-item>
         <el-form-item label="提现地址：" prop="address">
-          <el-input v-model="withFrom.address"></el-input>
+          <el-input v-model="withFrom.address" placeholder="请输入提现地址"></el-input>
         </el-form-item>
-        <el-form-item label="提现数量：" prop="value">
-          <el-input v-model="withFrom.value"></el-input>
+        <el-form-item label="提现金额：" prop="value">
+          <el-input v-model="withFrom.value" placeholder="请输入提现金额"></el-input>
         </el-form-item>
         <el-form-item label="密码：" prop="password">
-          <el-input type="password" v-model="withFrom.password"></el-input>
+          <el-input type="password" v-model="withFrom.password" placeholder="请输入密码"></el-input>
         </el-form-item>
         <el-form-item label="验证码：" prop="valiCode">
           <el-col :span="19">
-            <el-input v-model="withFrom.valiCode"></el-input>
+            <el-input v-model="withFrom.valiCode" placeholder="请输入验证码"></el-input>
           </el-col>
           <el-col :span="5" style="text-align: right">
             <send-btn :phone="phone"></send-btn>
@@ -127,6 +127,7 @@
             this.$store.dispatch('getWithdrawHandler', this.withFrom).then((res) => {
               this.$message.success('提现申请提交成功')
               this.$refs.withFrom.resetFields();
+              this.getRecord()
             }).catch((err) => {
               this.$message.error(err)
             })

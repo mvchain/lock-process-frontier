@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Message } from 'element-ui'
 
 // 创建axios实例
+axios.defaults.withCredentials = true;
 const service = axios.create({
   baseURL: window.urlData.url, // api的base_url
   timeout: 15000 // 请求超时时间
@@ -29,12 +30,7 @@ service.interceptors.response.use(
     return response.data
   },
   error => {
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
-    return Promise.reject(error)
+    return Promise.reject(error.response.data.message)
   }
 )
 

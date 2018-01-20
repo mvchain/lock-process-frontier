@@ -33,14 +33,20 @@ export function withdrawHandler(data) {
 }
 export function lockPosition(data) {
   return request({
-    url: '/console/transaction/deposite',
+    url: '/console/lockRecord/lock',
     method: 'post',
     data
   })
 }
 export function lockRecord(data) {
   return request({
-    url: '/console/transaction/deposite',
+    url: '/console/lockRecord/list' + data,
+    method: 'get'
+  })
+}
+export function clearMoney(data) {
+  return request({
+    url: '/console/refund/application',
     method: 'post',
     data
   })
