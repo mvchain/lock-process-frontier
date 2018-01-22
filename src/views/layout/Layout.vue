@@ -2,7 +2,9 @@
   <el-container style="height:100%;">
     <el-aside style="width:250px;">
       <div class="mvc-slider">
-        <div class="mvc-slider-logo"></div>
+        <div class="mvc-slider-logo" >
+          <img :src="imgS" alt="logo">
+        </div>
         <el-menu
           class="mvc-slider-menu"
           default-active="1"
@@ -62,12 +64,13 @@
 
 <script>
   import { removeToken } from '../../utils/auth'
-
+  import logoImg from '../../../static/imgs/logo.png'
   export default {
     name: 'layout',
     data() {
       return {
-        username: window.sessionStorage.getItem('mvcUser') ? JSON.parse(window.sessionStorage.getItem('mvcUser')) : ''
+        username: window.sessionStorage.getItem('mvcUser') ? JSON.parse(window.sessionStorage.getItem('mvcUser')) : '',
+        imgS: logoImg
       }
     },
     methods: {

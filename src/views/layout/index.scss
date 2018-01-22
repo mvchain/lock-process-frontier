@@ -29,8 +29,12 @@
   background:#2d3a4b;
   & .mvc-slider-logo{
     height:250px;
-    background:url(../../../static/imgs/logo.png) no-repeat 45px 45px;
-    background-size:160px 160px;
+    text-align: center;
+
+    & img{
+      width:200px;
+      margin-top:25px;
+    }
   }
   & .mvc-slider-menu{
     width:251px;
