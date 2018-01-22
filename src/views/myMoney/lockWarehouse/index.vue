@@ -16,7 +16,7 @@
           <el-input type="password" v-model="lockForm.password" placeholder="请输入密码"></el-input>
         </el-form-item>
         <el-form-item label="" prop="age">
-          <el-button type="primary" @click="subMit">
+          <el-button type="primary" @click="subMit" v-loading="loading">
             确认锁仓
           </el-button>
         </el-form-item>
@@ -69,6 +69,7 @@
       }
       return {
         rules: {},
+        loading: false,
         lockForm: {
           password: '',
           value: '',
@@ -96,12 +97,15 @@
       subMit() {
         this.$refs.lockForm.validate((valid) => {
           if (valid) {
+            this.loading = true
             this.$store.dispatch('getLockPosition', this.lockForm).then((res) => {
               this.$message.success('锁仓申请提交成功')
               this.$refs.lockForm.resetFields();
               this.getRecord()
+              this.loading = false
             }).catch((err) => {
               this.$message.error(err)
+              this.loading = false
             })
           } else {
             this.$message.error('请完成表单填写')

@@ -43,7 +43,7 @@
         </div>
       </div>
       <el-form-item>
-        <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
+        <el-button type="primary" style="width:100%;" v-loading="loading" @click.native.prevent="handleLogin">
           登录
         </el-button>
       </el-form-item>
@@ -86,7 +86,7 @@
         </el-row>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" style="width:100%;" :loading="loading"
+        <el-button type="primary" style="width:100%;" v-loading="loading"
                    @click.native.prevent="handleRegistered('loginFlag')">
           立即注册
         </el-button>
@@ -130,7 +130,7 @@
         </el-row>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" style="width:100%;" :loading="loading"
+        <el-button type="primary" style="width:100%;" v-loading="loading"
                    @click.native.prevent="handleForget('loginFlag')">
           确认修改
         </el-button>

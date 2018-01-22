@@ -14,7 +14,7 @@
           <el-input type="password" v-model="changeFrom.againPwd" placeholder="请再次输入密码"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click.native.prevent="goChange(changeFrom)">确认修改</el-button>
+          <el-button type="primary" v-loading="loading" @click.native.prevent="goChange(changeFrom)">确认修改</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -75,17 +75,19 @@
       goChange() {
         this.$refs.changeFrom.validate((valid) => {
           if (valid) {
+            this.loading = true
             this.$store.dispatch('changePwd', this.changeFrom).then(() => {
               this.$refs['changeFrom'].resetFields()
               this.$message({
                 type: 'success',
                 message: '修改成功'
               })
+              this.loading = false
             }).catch((err) => {
               this.$message.error(err)
+              this.loading = false
             })
           } else {
-            this.loading = false
             this.$message.error('请正确填写信息')
             return false
           }

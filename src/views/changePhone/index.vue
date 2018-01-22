@@ -20,7 +20,7 @@
           </el-col>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="changePhone">确认修改</el-button>
+          <el-button type="primary" @click="changePhone" v-loading="loading">确认修改</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -64,6 +64,7 @@
       return {
         labelPosition: 'right',
         verTime: false,
+        loading: false,
         phone: JSON.parse(window.sessionStorage.getItem('mvcUser')).cellphone,
         phoneFrom: {
           password: '',
@@ -81,19 +82,21 @@
       changePhone() {
         this.$refs.phoneFrom.validate((valid) => {
           if (valid) {
+            this.loading = true
             this.$store.dispatch('changePhone', this.phoneFrom).then(() => {
               this.$refs['phoneFrom'].resetFields()
               this.$message({
                 type: 'success',
                 message: '修改成功'
               })
+              this.loading = false
               window.sessionStorage.clear()
               this.$router.replace('/login')
             }).catch((err) => {
+              this.loading = false
               this.$message.error(err)
             })
           } else {
-            this.loading = false
             this.$message.error('请正确填写信息')
             return false
           }

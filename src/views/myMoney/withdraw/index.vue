@@ -26,7 +26,7 @@
           </el-col>
         </el-form-item>
         <el-form-item label="">
-          <el-button type="primary" @click="subMit">
+          <el-button type="primary" @click="subMit" v-loading="loading">
             确认提现
           </el-button>
         </el-form-item>
@@ -35,6 +35,7 @@
     <div>
       <p class="withdraw-title">最近提现记录</p>
       <el-table
+        v-loading="loading"
         :data="recordList.list"
         style="width: 100%">
         <el-table-column
@@ -120,12 +121,15 @@
       subMit() {
         this.$refs.withFrom.validate((valid) => {
           if (valid) {
+            this.loading = true
             this.$store.dispatch('getWithdrawHandler', this.withFrom).then((res) => {
               this.$message.success('提现申请提交成功')
               this.$refs.withFrom.resetFields();
               this.getRecord()
+               this.loading = false
             }).catch((err) => {
               this.$message.error(err)
+               this.loading = false
             })
           } else {
             this.$message.error('请完成表单填写')
@@ -174,6 +178,7 @@
       }
       return {
         rules: {},
+        loading: false,
         pageNo: 1,
         pageSize: 10,
         phone: JSON.parse(window.sessionStorage.getItem('mvcUser')).cellphone,

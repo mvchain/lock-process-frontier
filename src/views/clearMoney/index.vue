@@ -24,7 +24,7 @@
                     :rows="2"></el-input>
         </el-form-item>
         <el-form-item label="">
-          <el-button type="primary" @click="subMit">
+          <el-button type="primary" @click="subMit" v-loading="loading">
             提交申请
           </el-button>
         </el-form-item>
@@ -46,12 +46,15 @@
     methods: {
       subMit() {
         this.$refs.clearFrom.validate((valid) => {
+          this.loading = true
           if (valid) {
             this.$store.dispatch('getClearMoney', this.clearFrom).then((res) => {
               this.$message.success('清退申请提交成功')
               this.$refs.clearFrom.resetFields();
+              this.loading = false
             }).catch((err) => {
               this.$message.error(err)
+              this.loading = false
             })
           } else {
             this.$message.error('请完成表单填写')
@@ -107,6 +110,7 @@
           refundQuantity: '',
           comment: ''
         },
+        loading: false,
         clearRules: {
           realName: [{ required: true, trigger: 'blur', validator: valiRealname }],
           idCardNo: [{ required: true, trigger: 'blur', validator: valiIdCard }],

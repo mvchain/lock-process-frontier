@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-table
+      v-loading="loading"
       :data="moneyList"
       >
       <el-table-column
@@ -51,9 +52,12 @@
     },
     methods: {
       getMoneyList() {
+        this.loading = true
         this.$store.dispatch('getMoneyList').then(() => {
+          this.loading = false
         }).catch((err) => {
           this.$message.error(err)
+          this.loading = false
         })
       }
     },
@@ -64,6 +68,7 @@
     },
     data() {
       return {
+        loading: false
       }
     }
   }

@@ -12,6 +12,7 @@
     <div class="recharge-title">
       <p>最近充值记录</p>
       <el-table
+        v-loading="loading"
         :data="recordList.list"
         style="width: 100%">
         <el-table-column
@@ -84,9 +85,12 @@
           })
       },
       getRecord() {
+        this.loading = true
         this.$store.dispatch('getRecord', `?pageNo=${this.pageNo}&pageSize=${this.pageSize}&types=0`).then(() => {
+          this.loading = false
         }).catch((err) => {
           this.$message.error(err)
+          this.loading = false
         })
       }
     },
@@ -98,6 +102,7 @@
     data() {
       return {
         address: '',
+        loading: false,
         qrImg: '',
         pageNo: 1,
         pageSize: 10

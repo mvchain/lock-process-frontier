@@ -2,7 +2,7 @@
   <div>
     <el-table
       :data="lockRecordList.list"
-      :loading="loading"
+      v-loading="loading"
     >
       <el-table-column
         prop="orderId"
