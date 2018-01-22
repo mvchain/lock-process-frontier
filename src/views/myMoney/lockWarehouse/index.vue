@@ -1,6 +1,6 @@
 <template>
   <div class="lock-con">
-    <div class="lock-title" style="margin-top:0;color:rgb(255, 208, 75)">锁仓规则：锁仓{{rules.month}}个月，利息{{rules.interest*100}}%，代币锁仓后，在锁仓时间截止前，无法提现</div>
+    <div v-if="rules.month" class="lock-title" style="margin-top:0;color:rgb(255, 208, 75)">锁仓规则：锁仓{{rules.month}}个月，利息{{rules.interest*100}}%，代币锁仓后，在锁仓时间截止前，无法提现</div>
     <div class="lock-row">
       <el-form label-width="130px" :model="lockForm" :rules="lockRules" ref="lockForm">
         <el-form-item label="已锁仓金额：">
@@ -83,14 +83,10 @@
     methods: {
       getWithDraw() {
         this.$store.dispatch('getWithdrawRule').then((res) => {
-          res.forEach((v,k) => {
+          res.data.forEach((v,k) => {
             if (v.type === 1) {
               let arr = JSON.parse(v.config.substring(1, v.config.length - 1))
-              arr.forEach((v,k)=>{
-                if (v.type === this.$route.query.type) {
-                  this.rules = v
-                }
-              })
+              this.rules = arr
             }
           })
         }).catch((err) => {

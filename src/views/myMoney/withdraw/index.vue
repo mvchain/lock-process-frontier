@@ -101,14 +101,10 @@
       },
       getWithDraw() {
         this.$store.dispatch('getWithdrawRule').then((res) => {
-          res.forEach((v,k) => {
+          res.data.forEach((v,k) => {
             if (v.type === 0) {
               let arr = JSON.parse(v.config.substring(1,v.config.length-1))
-              arr.forEach((v,k)=>{
-                if (v.type === this.$route.query.type) {
-                  this.rules = v
-                }
-              })
+              this.rules = arr
             }
           })
         }).catch((err) => {
