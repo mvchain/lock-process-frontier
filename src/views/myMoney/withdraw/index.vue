@@ -53,7 +53,7 @@
           label="金额">
         </el-table-column>
         <el-table-column
-          prop="fromAddress"
+          prop="toAddress"
           label="转账ID">
         </el-table-column>
         <el-table-column

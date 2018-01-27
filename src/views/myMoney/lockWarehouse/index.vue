@@ -7,7 +7,7 @@
           <span>{{$route.query.lock}}</span>
         </el-form-item>
         <el-form-item label="可锁仓金额：">
-          <span>{{$route.query.balance}}</span>
+          <span>{{rules.max-$route.query.lock}}</span>
         </el-form-item>
         <el-form-item label="锁仓金额：" prop="value">
           <el-input v-model="lockForm.value" placeholder="请输入锁仓金额"></el-input>
@@ -30,6 +30,7 @@
   import { balanceVerification } from '@/utils/validate'
   import { mapGetters } from 'vuex'
   import lockRecored from '../../../components/lockRecored/index'
+  import MD5 from 'md5'
   export default {
     name: 'lockWarehouse',
     computed: {
@@ -98,6 +99,7 @@
         this.$refs.lockForm.validate((valid) => {
           if (valid) {
             this.loading = true
+            this.lockForm.password = new MD5().update(this.lockForm.password).digest('hex')
             this.$store.dispatch('getLockPosition', this.lockForm).then((res) => {
               this.$message.success('锁仓申请提交成功')
               this.$refs.lockForm.resetFields();

@@ -23,7 +23,7 @@
 
 <script>
   import { passwordVerification } from '@/utils/validate'
-
+  import MD5 from 'md5'
   export default {
     name: 'changePwd',
     data() {
@@ -76,6 +76,8 @@
         this.$refs.changeFrom.validate((valid) => {
           if (valid) {
             this.loading = true
+            this.changeFrom.password = new MD5().update(this.changeFrom.password).digest('hex')
+            this.changeFrom.newPassword = new MD5().update(this.changeFrom.newPassword).digest('hex')
             this.$store.dispatch('changePwd', this.changeFrom).then(() => {
               this.$refs['changeFrom'].resetFields()
               this.$message({

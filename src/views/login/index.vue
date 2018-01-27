@@ -142,7 +142,7 @@
 <script>
   import { phoneNumFilter, passwordVerification } from '@/utils/validate'
   import { setToken } from '@/utils/auth'
-
+  import MD5 from 'md5'
   export default {
     name: 'login',
     data() {
@@ -268,6 +268,7 @@
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true
+            this.loginForm.password = new MD5().update(this.loginForm.password).digest('hex')
             this.$store.dispatch('Login', this.loginForm).then((res) => {
               setToken(JSON.stringify({ cellphone: this.loginForm.cellphone, token: res }))
               this.$router.push({ path: '/' })
@@ -297,6 +298,7 @@
         this.$refs.loginForm1.validate(valid => {
           if (valid) {
             this.loading = true
+            this.loginForm1.password = new MD5().update(this.loginForm1.password).digest('hex')
             this.$store.dispatch('setRegistered', this.loginForm1).then(() => {
               this.changFlag('loginFlag')
               this.$message({
@@ -320,6 +322,7 @@
         this.$refs.forgetForm.validate(valid => {
           if (valid) {
             this.loading = true
+            this.forgetForm.password = new MD5().update(this.forgetForm.password).digest('hex')
             this.$store.dispatch('setForgetPwd', this.forgetForm).then(() => {
               this.changFlag('loginFlag')
               this.$message({
