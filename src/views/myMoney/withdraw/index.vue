@@ -78,8 +78,9 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { balanceVerification } from '@/utils/validate'
+  import { balanceVerification, isAddress } from '@/utils/validate'
   import sendBtn from '../../../components/sendVerificationCode/index'
+  import MD5 from 'md5'
   export default {
     name: 'withdraw',
     computed: {
@@ -122,7 +123,10 @@
         this.$refs.withFrom.validate((valid) => {
           if (valid) {
             this.loading = true
-            this.$store.dispatch('getWithdrawHandler', this.withFrom).then((res) => {
+            let copyForm = JSON.stringify(this.withFrom)
+            copyForm = JSON.parse(copyForm)
+            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            this.$store.dispatch('getWithdrawHandler', copyForm).then((res) => {
               this.$message.success('提现申请提交成功')
               this.$refs.withFrom.resetFields();
               this.getRecord()
@@ -143,12 +147,16 @@
         if (!value) {
           callback(new Error('请输入地址'))
         } else {
-          callback()
+          if (isAddress(value)) {
+            callback()
+          } else {
+            callback(new Error('请输入有效地址'))
+          }
         }
       }
       const valiValue = (rule, value, callback) => {
         let _balance = this.$route.query.balance
-        if (!value) {
+        if (!Number(value)) {
           callback(new Error('请输入数量'))
         } else {
           if(!balanceVerification(value)) {

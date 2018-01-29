@@ -76,9 +76,11 @@
         this.$refs.changeFrom.validate((valid) => {
           if (valid) {
             this.loading = true
-            this.changeFrom.password = new MD5().update(this.changeFrom.password).digest('hex')
-            this.changeFrom.newPassword = new MD5().update(this.changeFrom.newPassword).digest('hex')
-            this.$store.dispatch('changePwd', this.changeFrom).then(() => {
+            let copyForm = JSON.stringify(this.changeFrom)
+            copyForm = JSON.parse(copyForm)
+            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            copyForm.password = new MD5().update(copyForm.newPassword).digest('hex')
+            this.$store.dispatch('changePwd', copyForm).then(() => {
               this.$refs['changeFrom'].resetFields()
               this.$message({
                 type: 'success',

@@ -40,3 +40,11 @@ export function isCardNo(card) {
     return true
   }
 }
+export function isAddress(t) {
+  if (t.length === 42 || t.length === 40) {
+    return true;
+  } else {
+    console.log(2)
+    return false
+  }
+}

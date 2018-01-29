@@ -268,8 +268,10 @@
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true
-            this.loginForm.password = new MD5().update(this.loginForm.password).digest('hex')
-            this.$store.dispatch('Login', this.loginForm).then((res) => {
+            let copyForm = JSON.stringify(this.loginForm)
+            copyForm = JSON.parse(copyForm)
+            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            this.$store.dispatch('Login', copyForm).then((res) => {
               setToken(JSON.stringify({ cellphone: this.loginForm.cellphone, token: res }))
               this.$router.push({ path: '/' })
               this.loading = false
@@ -298,8 +300,10 @@
         this.$refs.loginForm1.validate(valid => {
           if (valid) {
             this.loading = true
-            this.loginForm1.password = new MD5().update(this.loginForm1.password).digest('hex')
-            this.$store.dispatch('setRegistered', this.loginForm1).then(() => {
+            let copyForm = JSON.stringify(this.loginForm1)
+            copyForm = JSON.parse(copyForm)
+            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            this.$store.dispatch('setRegistered', copyForm).then(() => {
               this.changFlag('loginFlag')
               this.$message({
                 type: 'success',
@@ -322,8 +326,10 @@
         this.$refs.forgetForm.validate(valid => {
           if (valid) {
             this.loading = true
-            this.forgetForm.password = new MD5().update(this.forgetForm.password).digest('hex')
-            this.$store.dispatch('setForgetPwd', this.forgetForm).then(() => {
+            let copyForm = JSON.stringify(this.forgetForm)
+            copyForm = JSON.parse(copyForm)
+            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            this.$store.dispatch('setForgetPwd', copyForm).then(() => {
               this.changFlag('loginFlag')
               this.$message({
                 type: 'success',

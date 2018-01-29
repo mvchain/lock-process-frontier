@@ -30,6 +30,7 @@
 <script>
   import { phoneNumFilter } from '@/utils/validate'
   import sendBtn from '../../components/sendVerificationCode/index'
+  import MD5 from 'md5'
   export default {
     name: 'changePhone',
     components: {
@@ -83,7 +84,10 @@
         this.$refs.phoneFrom.validate((valid) => {
           if (valid) {
             this.loading = true
-            this.$store.dispatch('changePhone', this.phoneFrom).then(() => {
+            let copyForm = JSON.stringify(this.phoneFrom)
+            copyForm = JSON.parse(copyForm)
+            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            this.$store.dispatch('changePhone', copyForm).then(() => {
               this.$refs['phoneFrom'].resetFields()
               this.$message({
                 type: 'success',

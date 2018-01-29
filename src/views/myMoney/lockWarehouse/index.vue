@@ -99,10 +99,12 @@
         this.$refs.lockForm.validate((valid) => {
           if (valid) {
             this.loading = true
-            this.lockForm.password = new MD5().update(this.lockForm.password).digest('hex')
-            this.$store.dispatch('getLockPosition', this.lockForm).then((res) => {
+            let copyForm = JSON.stringify(this.lockForm)
+            copyForm = JSON.parse(copyForm)
+            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            this.$store.dispatch('getLockPosition', copyForm).then((res) => {
               this.$message.success('锁仓申请提交成功')
-              this.$refs.lockForm.resetFields();
+              this.$refs.lockForm.resetFields()
               this.getRecord()
               this.loading = false
             }).catch((err) => {
