@@ -80,7 +80,7 @@
   import { mapGetters } from 'vuex'
   import { balanceVerification, isAddress } from '@/utils/validate'
   import sendBtn from '../../../components/sendVerificationCode/index'
-  import MD5 from 'md5'
+  import md5 from 'blueimp-md5'
   export default {
     name: 'withdraw',
     computed: {
@@ -125,7 +125,7 @@
             this.loading = true
             let copyForm = JSON.stringify(this.withFrom)
             copyForm = JSON.parse(copyForm)
-            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            copyForm.password = md5(md5(copyForm.password) + 'MVC')
             this.$store.dispatch('getWithdrawHandler', copyForm).then((res) => {
               this.$message.success('提现申请提交成功')
               this.$refs.withFrom.resetFields();

@@ -142,7 +142,7 @@
 <script>
   import { phoneNumFilter, passwordVerification } from '@/utils/validate'
   import { setToken } from '@/utils/auth'
-  import MD5 from 'md5'
+  import md5 from 'blueimp-md5'
   export default {
     name: 'login',
     data() {
@@ -270,7 +270,7 @@
             this.loading = true
             let copyForm = JSON.stringify(this.loginForm)
             copyForm = JSON.parse(copyForm)
-            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            copyForm.password = md5(md5(copyForm.password) + 'MVC')
             this.$store.dispatch('Login', copyForm).then((res) => {
               setToken(JSON.stringify({ cellphone: this.loginForm.cellphone, token: res }))
               this.$router.push({ path: '/' })
@@ -302,7 +302,7 @@
             this.loading = true
             let copyForm = JSON.stringify(this.loginForm1)
             copyForm = JSON.parse(copyForm)
-            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            copyForm.password = md5(md5(copyForm.password) + 'MVC')
             this.$store.dispatch('setRegistered', copyForm).then(() => {
               this.changFlag('loginFlag')
               this.$message({
@@ -328,7 +328,7 @@
             this.loading = true
             let copyForm = JSON.stringify(this.forgetForm)
             copyForm = JSON.parse(copyForm)
-            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            copyForm.password = md5(md5(copyForm.password) + 'MVC')
             this.$store.dispatch('setForgetPwd', copyForm).then(() => {
               this.changFlag('loginFlag')
               this.$message({

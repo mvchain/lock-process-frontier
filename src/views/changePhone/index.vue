@@ -30,7 +30,7 @@
 <script>
   import { phoneNumFilter } from '@/utils/validate'
   import sendBtn from '../../components/sendVerificationCode/index'
-  import MD5 from 'md5'
+  import md5 from 'blueimp-md5'
   export default {
     name: 'changePhone',
     components: {
@@ -86,7 +86,7 @@
             this.loading = true
             let copyForm = JSON.stringify(this.phoneFrom)
             copyForm = JSON.parse(copyForm)
-            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            copyForm.password = md5(md5(copyForm.password) + 'MVC')
             this.$store.dispatch('changePhone', copyForm).then(() => {
               this.$refs['phoneFrom'].resetFields()
               this.$message({

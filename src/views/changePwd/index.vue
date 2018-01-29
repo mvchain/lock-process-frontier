@@ -23,7 +23,7 @@
 
 <script>
   import { passwordVerification } from '@/utils/validate'
-  import MD5 from 'md5'
+  import md5 from 'blueimp-md5'
   export default {
     name: 'changePwd',
     data() {
@@ -78,8 +78,8 @@
             this.loading = true
             let copyForm = JSON.stringify(this.changeFrom)
             copyForm = JSON.parse(copyForm)
-            copyForm.password = new MD5().update(copyForm.password).digest('hex')
-            copyForm.password = new MD5().update(copyForm.newPassword).digest('hex')
+            copyForm.password = md5(md5(copyForm.password) + 'MVC')
+            copyForm.newPassword = md5(md5(copyForm.newPassword) + 'MVC')
             this.$store.dispatch('changePwd', copyForm).then(() => {
               this.$refs['changeFrom'].resetFields()
               this.$message({

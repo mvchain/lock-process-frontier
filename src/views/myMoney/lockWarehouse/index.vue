@@ -30,7 +30,7 @@
   import { balanceVerification } from '@/utils/validate'
   import { mapGetters } from 'vuex'
   import lockRecored from '../../../components/lockRecored/index'
-  import MD5 from 'md5'
+  import md5 from 'blueimp-md5'
   export default {
     name: 'lockWarehouse',
     computed: {
@@ -101,7 +101,7 @@
             this.loading = true
             let copyForm = JSON.stringify(this.lockForm)
             copyForm = JSON.parse(copyForm)
-            copyForm.password = new MD5().update(copyForm.password).digest('hex')
+            copyForm.password = md5(md5(copyForm.password) + 'MVC')
             this.$store.dispatch('getLockPosition', copyForm).then((res) => {
               this.$message.success('锁仓申请提交成功')
               this.$refs.lockForm.resetFields()
