@@ -34,9 +34,9 @@
         width="200"
        >
         <template slot-scope="scope">
-          <router-link class="mvc-btn mvc-btn-primary" :to="{path: '/myMoney/moneyRecharge', query: {type:type,id:1}}">充值</router-link>
+          <!--<router-link class="mvc-btn mvc-btn-primary" :to="{path: '/myMoney/moneyRecharge', query: {type:type,id:1}}">充值</router-link>-->
           <router-link class="mvc-btn mvc-btn-success" :to="{path: '/myMoney/moneyWithdraw', query: {type:type,balance:scope.row.balanceStr,id:2}}">提现</router-link>
-          <router-link class="mvc-btn mvc-btn-danger" :to="{path: '/myMoney/moneyLock', query: {type:type,id:3,balance:scope.row.balanceStr,lock:scope.row.lockStr}}">锁仓</router-link>
+          <!--<router-link class="mvc-btn mvc-btn-danger" :to="{path: '/myMoney/moneyLock', query: {type:type,id:3,balance:scope.row.balanceStr,lock:scope.row.lockStr}}">锁仓</router-link>-->
         </template>
       </el-table-column>
     </el-table>

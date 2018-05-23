@@ -30,7 +30,6 @@
   import { balanceVerification } from '@/utils/validate'
   import { mapGetters } from 'vuex'
   import lockRecored from '../../../components/lockRecored/index'
-  import md5 from 'blueimp-md5'
   export default {
     name: 'lockWarehouse',
     computed: {
@@ -54,7 +53,7 @@
       }
       const valiValue = (rule, value, callback) => {
         let _balance = this.$route.query.balance
-        if (!value) {
+        if (!value || value == 0) {
           callback(new Error('请输入数量'))
         } else {
           if(!balanceVerification(value)) {
@@ -99,10 +98,7 @@
         this.$refs.lockForm.validate((valid) => {
           if (valid) {
             this.loading = true
-            let copyForm = JSON.stringify(this.lockForm)
-            copyForm = JSON.parse(copyForm)
-            copyForm.password = md5(md5(copyForm.password) + 'MVC')
-            this.$store.dispatch('getLockPosition', copyForm).then((res) => {
+            this.$store.dispatch('getLockPosition', this.lockForm).then((res) => {
               this.$message.success('锁仓申请提交成功')
               this.$refs.lockForm.resetFields()
               this.getRecord()

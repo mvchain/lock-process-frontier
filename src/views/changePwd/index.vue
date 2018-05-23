@@ -23,7 +23,6 @@
 
 <script>
   import { passwordVerification } from '@/utils/validate'
-  import md5 from 'blueimp-md5'
   export default {
     name: 'changePwd',
     data() {
@@ -76,11 +75,7 @@
         this.$refs.changeFrom.validate((valid) => {
           if (valid) {
             this.loading = true
-            let copyForm = JSON.stringify(this.changeFrom)
-            copyForm = JSON.parse(copyForm)
-            copyForm.password = md5(md5(copyForm.password) + 'MVC')
-            copyForm.newPassword = md5(md5(copyForm.newPassword) + 'MVC')
-            this.$store.dispatch('changePwd', copyForm).then(() => {
+            this.$store.dispatch('changePwd', this.changeFrom).then(() => {
               this.$refs['changeFrom'].resetFields()
               this.$message({
                 type: 'success',

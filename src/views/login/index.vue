@@ -3,6 +3,7 @@
     <div class="login-logo">
       <img src="../../../static/imgs/logo.png" alt="">
     </div>
+    <div class="gonggao">原housebtc.com平台用户的手机号和密码不变</div>
     <el-form v-show="showFlag.loginFlag" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm"
              label-position="left" label-width="0px"
              class="card-box login-form">
@@ -38,9 +39,9 @@
         <div>
           <el-button @click="changFlag('forgetFlag')" type="text">忘记密码？</el-button>
         </div>
-        <div>
-          <el-button size="small" type="info" @click="changFlag('registeredFlag')">注 册</el-button>
-        </div>
+        <!--<div>-->
+          <!--<el-button size="small" type="info" @click="changFlag('registeredFlag')">注 册</el-button>-->
+        <!--</div>-->
       </div>
       <el-form-item>
         <el-button type="primary" style="width:100%;" v-loading="loading" @click.native.prevent="handleLogin">
@@ -51,7 +52,7 @@
     <el-form v-show="showFlag.registeredFlag" autoComplete="on" :model="loginForm1" :rules="loginRules" ref="loginForm1"
              label-position="left" label-width="0px"
              class="card-box login-form">
-      <h3 class="title">注 册</h3>
+      <h3 class="title" >注 册</h3>
       <el-form-item prop="cellphone">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user"/>
@@ -142,7 +143,6 @@
 <script>
   import { phoneNumFilter, passwordVerification } from '@/utils/validate'
   import { setToken } from '@/utils/auth'
-  import md5 from 'blueimp-md5'
   export default {
     name: 'login',
     data() {
@@ -268,10 +268,7 @@
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true
-            let copyForm = JSON.stringify(this.loginForm)
-            copyForm = JSON.parse(copyForm)
-            copyForm.password = md5(md5(copyForm.password) + 'MVC')
-            this.$store.dispatch('Login', copyForm).then((res) => {
+            this.$store.dispatch('Login', this.loginForm).then((res) => {
               setToken(JSON.stringify({ cellphone: this.loginForm.cellphone, token: res }))
               this.$router.push({ path: '/' })
               this.loading = false
@@ -300,10 +297,7 @@
         this.$refs.loginForm1.validate(valid => {
           if (valid) {
             this.loading = true
-            let copyForm = JSON.stringify(this.loginForm1)
-            copyForm = JSON.parse(copyForm)
-            copyForm.password = md5(md5(copyForm.password) + 'MVC')
-            this.$store.dispatch('setRegistered', copyForm).then(() => {
+            this.$store.dispatch('setRegistered', this.loginForm1).then(() => {
               this.changFlag('loginFlag')
               this.$message({
                 type: 'success',
@@ -326,10 +320,7 @@
         this.$refs.forgetForm.validate(valid => {
           if (valid) {
             this.loading = true
-            let copyForm = JSON.stringify(this.forgetForm)
-            copyForm = JSON.parse(copyForm)
-            copyForm.password = md5(md5(copyForm.password) + 'MVC')
-            this.$store.dispatch('setForgetPwd', copyForm).then(() => {
+            this.$store.dispatch('setForgetPwd', this.forgetForm).then(() => {
               this.changFlag('loginFlag')
               this.$message({
                 type: 'success',
@@ -359,6 +350,13 @@
   $dark_gray: #889aa4;
   $light_gray: #eee;
 
+  .gonggao{
+    text-align: center;
+    font-size:20px;
+    font-weight:900;
+    color:#fff;
+    padding-top:20px;
+  }
   .login-container {
     @include relative;
     height: 100vh;

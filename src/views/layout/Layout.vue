@@ -17,10 +17,10 @@
             <i class="el-icon-menu"></i>
             <router-link :to="{path:'/myMoney'}" tag="span" exact>我的资金</router-link>
           </el-menu-item>
-          <el-menu-item index="2">
-            <i class="el-icon-setting"></i>
-            <router-link :to="{path:'/clearMoney'}" tag="span" exact>清退货币</router-link>
-          </el-menu-item>
+          <!--<el-menu-item index="2">-->
+            <!--<i class="el-icon-setting"></i>-->
+            <!--<router-link :to="{path:'/clearMoney'}" tag="span" exact>清退货币</router-link>-->
+          <!--</el-menu-item>-->
         </el-menu>
         <div class="mvc-slider-private">
           <el-dropdown placement="top">
