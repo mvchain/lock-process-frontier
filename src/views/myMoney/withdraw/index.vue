@@ -5,6 +5,9 @@
         <el-form-item label="可用余额：" >
           <span>{{$route.query.balance}}</span>
         </el-form-item>
+        <el-form-item label="提现手续费：" >
+          <span>{{rules.poundage*100 + '%'}}</span>
+        </el-form-item>
         <el-form-item label="单日提现上限：">
           <span>{{rules.max}}</span>
         </el-form-item>
@@ -60,7 +63,7 @@
           prop="status"
           label="状态">
           <template slot-scope="scope">
-            <span type="text">{{scope.row.status==0?'等待':'完成'}}</span>
+            <span type="text">{{scope.row.status==1?'提现中':scope.row.status==2?'完成':'失败'}}</span>
           </template>
         </el-table-column>
       </el-table>

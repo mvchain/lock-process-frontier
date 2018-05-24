@@ -1,6 +1,6 @@
 
 const urlData = {
-  url: '//192.168.15.21:8765/api',
+  url: '//47.75.128.58/api',
   type: 'MVC'
 };
 window.urlData = urlData;
