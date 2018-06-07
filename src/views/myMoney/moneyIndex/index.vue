@@ -10,7 +10,7 @@
         >
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="nameEn"
         label="币种"
         >
       </el-table-column>
