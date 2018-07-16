@@ -39,9 +39,9 @@
         <div>
           <el-button @click="changFlag('forgetFlag')" type="text">忘记密码？</el-button>
         </div>
-        <!--<div>-->
-          <!--<el-button size="small" type="info" @click="changFlag('registeredFlag')">注 册</el-button>-->
-        <!--</div>-->
+        <div>
+          <el-button size="small" type="info" @click="changFlag('registeredFlag')">注 册</el-button>
+        </div>
       </div>
       <el-form-item>
         <el-button type="primary" style="width:100%;" v-loading="loading" @click.native.prevent="handleLogin">
